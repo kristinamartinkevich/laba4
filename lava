@@ -1,0 +1,247 @@
+//////////////// часть 1
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+
+namespace ConsoleApplication1
+{
+	class Program
+	{
+		static void Main()
+		{
+			// Создадим два множества
+			//SortedSet<char> ss = new SortedSet<char>();
+			//SortedSet<char> ss1 = new SortedSet<char>();
+
+			//ss.Add('A');
+			//ss.Add('B');
+			//ss.Add('C');
+			//ss.Add('Z');
+			//ShowColl(ss, "Первая коллекция: ");
+
+			//ss1.Add('X');
+			//ss1.Add('Y');
+			//ss1.Add('Z');
+			//ShowColl(ss1, "Вторая коллекция");
+
+			//ss.SymmetricExceptWith(ss1);
+			//ShowColl(ss, "Исключили разноименность (одинаковые элементы) двух множеств: ");
+
+			//ss.UnionWith(ss1);
+			//ShowColl(ss, "Объединение множеств: ");
+
+			//ss.ExceptWith(ss1);
+		    //	ShowColl(ss, "Вычитание множеств");
+
+			MyArr Point1 = new MyArr(1, 12, -4);
+			MyArr Point2 = new MyArr(0, -3, 18);
+			Console.WriteLine("Координаты первой точки: " +
+				Point1.x + " " + Point1.y + " " + Point1.z);
+			Console.WriteLine("Координаты второй точки: " +
+				Point2.x + " " + Point2.y + " " + Point2.z + "\n");
+
+			MyArr Point3 = Point1 + Point2;
+			Console.WriteLine("\nPoint1 + Point2 = "
+				+ Point3.x + " " + Point3.y + " " + Point3.z);
+            
+			Point3 = Point1 * Point2;
+			Console.WriteLine("\nPoint1 * Point2 = "
+				+ Point3.x + " " + Point3.y + " " + Point3.z);
+            
+		
+
+
+			Console.ReadLine();
+
+		
+		}
+
+		//static void ShowColl(SortedSet<char> ss, string s)
+		//{
+		//	Console.WriteLine(s);
+		//	foreach (char ch in ss)
+		//		Console.Write(ch + " ");
+		//	Console.WriteLine("\n");
+		//}
+
+	class MyArr
+	{
+		// Координаты точки в трехмерном пространстве
+		public int x, y, z;
+
+		public MyArr(int x = 0, int y = 0, int z = 0)
+		{
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+
+		// Перегружаем бинарный оператор +
+		public static MyArr operator +(MyArr obj1, MyArr obj2)
+		{
+			MyArr arr = new MyArr();
+			arr.x = obj1.x + obj2.x;
+			arr.y = obj1.y + obj2.y;
+			arr.z = obj1.z + obj2.z;
+			return arr;
+		}
+
+		// Перегружаем бинарный оператор * 
+		public static MyArr operator *(MyArr obj1, MyArr obj2)
+		{
+			MyArr arr = new MyArr();
+			arr.x = obj1.x * obj2.x;
+			arr.y = obj1.y * obj2.y;
+			arr.z = obj1.z * obj2.z;
+			return arr;
+		}
+
+
+
+		
+	}
+	}
+}
+
+
+
+
+
+
+//////////////////////часть 2
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class MyArr
+    {
+        // Координаты точки в трехмерном пространстве
+        public int x, y, z;
+
+        public MyArr(int x = 0, int y = 0, int z = 0)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        // Перегружаем логический оператор ==
+        public static bool operator ==(MyArr obj1, MyArr obj2)
+        {
+            if ((obj1.x == obj2.x) && (obj1.y == obj2.y) && (obj1.z == obj2.z))
+                return true;
+            return false;
+        }
+
+        // Теперь обязательно нужно перегрузить логический оператор !=
+        public static bool operator !=(MyArr obj1, MyArr obj2)
+        {
+            if ((obj1.x != obj2.x) || (obj1.y != obj2.y) || (obj1.z != obj2.z))
+                return false;
+            return true;
+        }
+
+        // Перегружаем оператор false
+        public static bool operator false(MyArr obj)
+        {
+            if ((obj.x <= 0) || (obj.y <= 0) || (obj.z <= 0))
+                return true;
+            return false;
+        }
+
+        // Обязательно перегружаем оператор true
+        public static bool operator true(MyArr obj)
+        {
+            if ((obj.x > 0) && (obj.y > 0) && (obj.z > 0))
+                return true;
+            return false;
+
+
+            string original = "hi";
+            Console.WriteLine("строка до: '{0}'", original);
+            String modified = original.Insert(3, ".");
+            Console.WriteLine("строка после: '{0}'", modified);
+
+
+
+            string[] fruits = { "melon", "pear", null, null };
+            fruits = fruits.Where(x => x != null).ToArray();
+
+			double dub = -32.3;
+			Console.WriteLine(Math.Abs(dub));
+			Console.WriteLine(Math.Floor(dub));
+			Console.WriteLine(Math.Round(Math.Abs(dub)));
+		}
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyArr myObject1 = new MyArr(x: 4, z: 5, y: 12);
+            MyArr myObject2 = new MyArr(x: 4, z: 5, y: 12);
+
+            if (myObject1 == myObject2)
+                Console.WriteLine("Объекты равны");
+
+            if (myObject1)
+                Console.WriteLine("Все координаты объекта myObject1 положительны");
+
+            Console.ReadLine();
+        }
+
+        class Owner
+        {
+            public string name;
+            public long ID;
+            public string organisation;
+
+            public Owner(string name, long ID, string organisation)
+            {
+                this.name = name;
+                this.ID = ID;
+                this.organisation = organisation;
+            }
+            public void Info()
+            {
+                Console.WriteLine("Имя: {0} (ID {1}) организация создателя: {2}", name, ID, organisation);
+            }
+
+        }
+
+
+		class Date
+		{
+			int day;
+			string month;
+			int year;
+
+			public Date(int day, string month, int year)
+			{
+				this.day= day;
+				this.month = month;
+				this.year = year;
+			}
+			public void Data()
+			{
+                day = 8;
+                month = "October";
+                year = 2017;
+                Console.WriteLine("День: {0} (Месяц {1}) Год: {2}", day, month, year);
+			}
+
+
+
+		}
+    }
+}
